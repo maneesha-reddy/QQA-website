@@ -16,7 +16,9 @@ import SignUp from "./components/authenticate/signUp";
 import LiveTrade from "./components/Livetrade/LiveTrade";
 import LoginTopBar from "./components/logintopbar/loginTopbar";
 import CreateStrategy from "./components/createStrategy/CreateStrategy";
-import Homepage from './components/homepage/homepage'
+import Homepage from "./components/homepage/homepage";
+import Profile from "./components/profile/profile";
+import Brokers from './components/brokers/Broker'
 const { Header, Content } = Layout;
 
 class App extends React.Component {
@@ -59,9 +61,11 @@ class App extends React.Component {
     // console.log(this.state.authen, "hello");
     return (
       <>
-        <Layout className={this.state.darkmode}>
-          {this.state.authen ? (
-            <>
+        {this.state.authen ? (
+          <>
+            {/* <Layout className={this.state.darkmode}> */}
+            {/* <Layout className='dashboard'> */}
+            <Layout>
               <TopBar
                 style={{ padding: 100 }}
                 toogleTheme={this.toogleTheme}
@@ -88,6 +92,8 @@ class App extends React.Component {
                       <Route path="/backtest" component={Backlist}></Route>
                       <Route path="/paperTrade" component={PaperTrade}></Route>
                       <Route path="/liveTrade" component={LiveTrade}></Route>
+                      <Route path="/profile" component={Profile}></Route>
+                      <Route path="/brokers" component={Brokers}></Route>
                       <Route
                         path="/createTrade"
                         component={CreateStrategy}
@@ -96,10 +102,11 @@ class App extends React.Component {
                   </Content>
                 </Layout>
               </Layout>
-            </>
-          ) : (
-            <>
-              {/* <LoginTopBar
+            </Layout>
+          </>
+        ) : (
+          <>
+            {/* <LoginTopBar
                 toogleTheme={this.toogleTheme}
                 darkmode={this.state.darkmode}
               />
@@ -112,21 +119,22 @@ class App extends React.Component {
                 <Content
                   style={{ margin: "0 16px" }}
                 > */}
-                  <Switch>
-                    <Route path="/SignUp" component={SignUp}></Route>
-                    <Route
-                      path="/SignIn"
-                      render={(props) => (
-                        <SignIn {...props} auth={this.onAuthenticate} />
-                      )}
-                    />
-                    <Route path = "/" component={Homepage}></Route>
-                  </Switch>
-                {/* </Content>
+            <Layout className={this.state.darkmode}>
+              <Switch>
+                <Route path="/SignUp" component={SignUp}></Route>
+                <Route
+                  path="/SignIn"
+                  render={(props) => (
+                    <SignIn {...props} auth={this.onAuthenticate} />
+                  )}
+                />
+                <Route path="/" component={Homepage}></Route>
+              </Switch>
+              {/* </Content>
               </Layout> */}
-            </>
-          )}
-        </Layout>
+            </Layout>
+          </>
+        )}
       </>
     );
   }

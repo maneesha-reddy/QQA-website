@@ -44,23 +44,28 @@ export const Services = (props) => {
           <h2>
             <b>Key features</b>
           </h2>
-          <h3 className="who"><b>
-            <li>Powerful, smart &amp; ready to use strategies.</li>
-            <br/>
-            <li>
-              Connect brokers that offer automation &amp; run your strategies in
-              paper &amp; live environment.
-            </li>
-            <br/>
-            <li> Connect &amp; trade with a few clicks -> go algo anytime. </li>
-            <br/>
-            <li>
-              Low latency order execution, without manual intervention. Highly
-              reliable system.
-            </li>
-            <br/>
-            <li> Direct market access provided for NSE, BSE,MCX, CDS.</li>
-            </b>   </h3>
+          <h3 className="who">
+            <b>
+              <li>Powerful, smart &amp; ready to use strategies.</li>
+              <br />
+              <li>
+                Connect brokers that offer automation &amp; run your strategies
+                in paper &amp; live environment.
+              </li>
+              <br />
+              <li>
+                {" "}
+                Connect &amp; trade with a few clicks -> go algo anytime.{" "}
+              </li>
+              <br />
+              <li>
+                Low latency order execution, without manual intervention. Highly
+                reliable system.
+              </li>
+              <br />
+              <li> Direct market access provided for NSE, BSE,MCX, CDS.</li>
+            </b>{" "}
+          </h3>
         </Col>
       </Row>
     </div>

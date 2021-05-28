@@ -12,6 +12,7 @@ import { Form } from "antd";
 import axios from "axios";
 import { NavLink, withRouter } from "react-router-dom";
 import { Layout, Menu, Breadcrumb } from "antd";
+import design4 from "../topbar/Design1.png";
 const { Header, Content } = Layout;
 
 class SignUp extends Component {
@@ -23,8 +24,8 @@ class SignUp extends Component {
   render() {
     const onFinish = (values) => {
       console.log("Success:", values);
-      // let url = "http://127.0.0.1:8000/website/signup/";
-      let url = "https://quantqalgo.ddns.net/website/signup/";
+      let url = "http://127.0.0.1:8000/website/signup/";
+      // let url = "https://quantqalgo.ddns.net/website/signup/";
 
       axios.post(url, values, {}).then((res) => {
         console.warn(res.data);
@@ -38,11 +39,19 @@ class SignUp extends Component {
     const { location, history } = this.props;
     return (
       <Layout className="site-layout">
-        {/* style={{backgroundColor: "#cff6cf"  */}
-        <Header className="site-layout-background" style={{ padding: 0 }} />
+        <Header
+          className="site-layout-background"
+          style={{
+            padding: 0,
+            background: "linear-gradient(to right, #ff4600 0%, #ffa833 100%)",
+          }}
+        />
         <Content style={{ margin: "0 16px" }}>
           <Card
-            style={{ width: 500, alignContent: "center" }}
+            style={{
+              width: 500,
+              alignContent: "center",
+            }}
             hoverable={true}
             bordered={true}
           >
@@ -54,12 +63,18 @@ class SignUp extends Component {
               }}
             >
               <CssBaseline />
+              <img
+                src={design4}
+                style={{ height: "auto", width: "150px" }}
+                className="img-responsive"
+                alt=""
+              />{" "}
+              <br />
               <LockTwoTone
                 twoToneColor="#eb2f96"
                 size="large"
                 style={{ alignContent: "center" }}
               />
-
               <Typography component="h1" variant="h5">
                 Sign Up
               </Typography>

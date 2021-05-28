@@ -1,39 +1,40 @@
-import django
-django.setup()
-from rest_framework.decorators import api_view
-from django.contrib.auth.models import User
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.keys import Keys
-from selenium import webdriver
-import itertools
-import socketio
-import eventlet
-import asyncio
-import logging
-import requests
-import talib
-from kiteconnect import KiteTicker
-from kiteconnect import KiteConnect
-import os
-import time
-from webbot import Browser
-from datetime import datetime, timedelta
-import talib as ta
-import numpy as np
-from pandas import json_normalize
-import pandas as pd
-from .serializers import ImageSerializer
-from .models import BackTest
+import datetime
+import pickle
+from twilio.rest import Client
+from django.contrib.auth import authenticate
+from django.http import HttpResponse
+from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.generics import (
     CreateAPIView, ListCreateAPIView
 )
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.contrib.auth import authenticate
-from twilio.rest import Client
-import pickle
+from .models import BackTest, ProfileDB
+from .serializers import ImageSerializer
+import pandas as pd
+from pandas import json_normalize
+import numpy as np
+import talib as ta
+from datetime import datetime, timedelta
+from webbot import Browser
+import time
+import os
+from kiteconnect import KiteConnect
+from kiteconnect import KiteTicker
+import talib
+import requests
+import logging
+import asyncio
+import eventlet
+import socketio
+import itertools
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
+from django.contrib.auth.models import User
+from rest_framework.decorators import api_view
+# import django
+# django.setup()
 
 # from beautifultable import BeautifulTable
 # from aiohttp import web
@@ -74,7 +75,7 @@ def accesskey():
 
     user_name = "RK2267"
     password = "Sbi@2021"
-    pin = "489111"
+    pin = "369741"
     # user_name = "SY5140"
     # password = "Sbi@2021"
     # pin = "489222"
@@ -82,8 +83,8 @@ def accesskey():
     options.add_argument('--no-sandbox')
     options.add_argument('--headless')
     options.add_argument('--disble-dev-shm-usage')
-    # driver = webdriver.Chrome('C:/Users/Dell/Downloads/chromedriver')
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Chrome('C:/Users/Dell/Downloads/chromedriver')
+    # driver = webdriver.Chrome(options=options)
     driver.get("https://kite.trade/connect/login?api_key=pv2830q1vbrhu1eu&v=3")
     time.sleep(1)
     element = driver.find_element_by_id("userid")
@@ -819,7 +820,7 @@ def on_ticks(ws, ticks):
 
     s = {k: v for k, v in sorted(s.items(), key=lambda item: item[1])}
     global le_t
-    print(le_t)
+    # print(le_t)
 
     # print("\n", le_t, "le_t")
     for i in le_t:
@@ -827,7 +828,7 @@ def on_ticks(ws, ticks):
         paperNames.append(dict1[dict3[i]])
 
     # if paperNames != []:
-    print("PaperNames", paperNames)
+    # print("PaperNames", paperNames)
     global papercapital
     global slots
     invst = papercapital/slots
@@ -1197,121 +1198,121 @@ hlist_mcx = ['2021-01-01', '2021-03-11', '2021-03-29', '2021-04-02', '2021-04-14
 hlist_mcx_m = ['o', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c']
 hlist_mcx_e = ['c', 'o', 'o', 'c', 'o', 'o', 'o', 'o', 'o']
 
-for i in range(len(dict3)):
-    # print(i)
-    t2 = (datetime.now())
-    t1 = (datetime.now() - timedelta(days=10))
-    # print(t1)
-    t1 = str(t1)
-    t2 = str(t2)
-    t1 = t1.split(" ")
-    t3 = t1[1].split(':')
-    t3[0] = '09'
-    t3[1] = '15'
-    t3 = t3[0]+':'+t3[1]+':'+t3[2]
-    t1 = t1[0]+"+"+t3
-    t2 = t2.split(" ")
-    t2 = t2[0]+"+"+t2[1]
+# for i in range(len(dict3)):
+#     # print(i)
+#     t2 = (datetime.now())
+#     t1 = (datetime.now() - timedelta(days=10))
+#     # print(t1)
+#     t1 = str(t1)
+#     t2 = str(t2)
+#     t1 = t1.split(" ")
+#     t3 = t1[1].split(':')
+#     t3[0] = '09'
+#     t3[1] = '15'
+#     t3 = t3[0]+':'+t3[1]+':'+t3[2]
+#     t1 = t1[0]+"+"+t3
+#     t2 = t2.split(" ")
+#     t2 = t2[0]+"+"+t2[1]
+# #     print(t1)
+# #     print(t2)
+#     url1 = "https://api.kite.trade/instruments/historical/" + \
+#         str(dict3[i])+"/" + str(Rlen)+"minute?from="+t1+"&to="+t2
+#     print(url1)
+#     HEADERS = {"X-Kite-Version": "3",
+#                "Authorization": "token pv2830q1vbrhu1eu:"+acc_key}
+#     res1 = requests.get(url1, headers=HEADERS)
+#     data1[i] = res1.json()
+# #     print(data1[i])
+#     data1[i] = data1[i]["data"]["candles"]
+#     data1[i] = pd.DataFrame(data1[i])
+#     data1[i] = data1[i].rename(
+#         columns={0: 'Time', 1: 'Open', 2: 'High', 3: 'Low', 4: 'Close', 5: 'Volume'})
+#     pd.set_option("display.max_rows", None, "display.max_columns", None)
+#     t2 = (datetime.now())
+#     t1 = (datetime.now() - timedelta(days=10))
+#     # print(t1)
+#     t1 = str(t1)
+#     t2 = str(t2)
+#     t1 = t1.split(" ")
+#     t3 = t1[1].split(':')
+#     t3[0] = '09'
+#     t3[1] = '15'
+#     t3 = t3[0]+':'+t3[1]+':'+t3[2]
+#     t1 = t1[0]+"+"+t3
+#     t2 = t2.split(" ")
+#     t2 = t2[0]+"+"+t2[1]
+#     # print(t1)
+#     # print(t2)
+#     url2 = "https://api.kite.trade/instruments/historical/" + \
+#         str(dict3[i])+"/" + str(Slen)+"minute?from="+t1+"&to="+t2
+#     print(url2)
+#     HEADERS = {"X-Kite-Version": "3",
+#                "Authorization": "token pv2830q1vbrhu1eu:"+acc_key}
+
+#     res2 = requests.get(url2, headers=HEADERS)
+#     data2[i] = res2.json()
+#     data2[i] = data2[i]["data"]["candles"]
+#     data2[i] = pd.DataFrame(data2[i])
+#     data2[i] = data2[i].rename(
+#         columns={0: 'Time', 1: 'Open', 2: 'High', 3: 'Low', 4: 'Close', 5: 'Volume'})
+#     pd.set_option("display.max_rows", None, "display.max_columns", None)
+
+#     t2 = (datetime.now())
+#     t1 = (datetime.now() - timedelta(days=10))
 #     print(t1)
-#     print(t2)
-    url1 = "https://api.kite.trade/instruments/historical/" + \
-        str(dict3[i])+"/" + str(Rlen)+"minute?from="+t1+"&to="+t2
-    print(url1)
-    HEADERS = {"X-Kite-Version": "3",
-               "Authorization": "token pv2830q1vbrhu1eu:"+acc_key}
-    res1 = requests.get(url1, headers=HEADERS)
-    data1[i] = res1.json()
-#     print(data1[i])
-    data1[i] = data1[i]["data"]["candles"]
-    data1[i] = pd.DataFrame(data1[i])
-    data1[i] = data1[i].rename(
-        columns={0: 'Time', 1: 'Open', 2: 'High', 3: 'Low', 4: 'Close', 5: 'Volume'})
-    pd.set_option("display.max_rows", None, "display.max_columns", None)
-    t2 = (datetime.now())
-    t1 = (datetime.now() - timedelta(days=10))
-    # print(t1)
-    t1 = str(t1)
-    t2 = str(t2)
-    t1 = t1.split(" ")
-    t3 = t1[1].split(':')
-    t3[0] = '09'
-    t3[1] = '15'
-    t3 = t3[0]+':'+t3[1]+':'+t3[2]
-    t1 = t1[0]+"+"+t3
-    t2 = t2.split(" ")
-    t2 = t2[0]+"+"+t2[1]
-    # print(t1)
-    # print(t2)
-    url2 = "https://api.kite.trade/instruments/historical/" + \
-        str(dict3[i])+"/" + str(Slen)+"minute?from="+t1+"&to="+t2
-    print(url2)
-    HEADERS = {"X-Kite-Version": "3",
-               "Authorization": "token pv2830q1vbrhu1eu:"+acc_key}
+#     t1 = str(t1)
+#     t2 = str(t2)
+#     t1 = t1.split(" ")
+#     t3 = t1[1].split(':')
+#     t3[0] = '09'
+#     t3[1] = '15'
+#     t3 = t3[0]+':'+t3[1]+':'+t3[2]
+#     t1 = t1[0]+"+"+t3
+#     t2 = t2.split(" ")
+#     t2 = t2[0]+"+"+t2[1]
+#     url2 = "https://api.kite.trade/instruments/historical/" + \
+#         str(dict3[i])+"/" + str(Mlen)+"minute?from="+t1+"&to="+t2
+#     print(url2)
+#     HEADERS = {"X-Kite-Version": "3",
+#                "Authorization": "token pv2830q1vbrhu1eu:"+acc_key}
 
-    res2 = requests.get(url2, headers=HEADERS)
-    data2[i] = res2.json()
-    data2[i] = data2[i]["data"]["candles"]
-    data2[i] = pd.DataFrame(data2[i])
-    data2[i] = data2[i].rename(
-        columns={0: 'Time', 1: 'Open', 2: 'High', 3: 'Low', 4: 'Close', 5: 'Volume'})
-    pd.set_option("display.max_rows", None, "display.max_columns", None)
+#     res2 = requests.get(url2, headers=HEADERS)
+#     data3[i] = res2.json()
+# #     print(data3[i])
+#     data3[i] = data3[i]["data"]["candles"]
+#     data3[i] = pd.DataFrame(data3[i])
+#     data3[i] = data3[i].rename(
+#         columns={0: 'Time', 1: 'Open', 2: 'High', 3: 'Low', 4: 'Close', 5: 'Volume'})
 
-    t2 = (datetime.now())
-    t1 = (datetime.now() - timedelta(days=10))
-    print(t1)
-    t1 = str(t1)
-    t2 = str(t2)
-    t1 = t1.split(" ")
-    t3 = t1[1].split(':')
-    t3[0] = '09'
-    t3[1] = '15'
-    t3 = t3[0]+':'+t3[1]+':'+t3[2]
-    t1 = t1[0]+"+"+t3
-    t2 = t2.split(" ")
-    t2 = t2[0]+"+"+t2[1]
-    url2 = "https://api.kite.trade/instruments/historical/" + \
-        str(dict3[i])+"/" + str(Mlen)+"minute?from="+t1+"&to="+t2
-    print(url2)
-    HEADERS = {"X-Kite-Version": "3",
-               "Authorization": "token pv2830q1vbrhu1eu:"+acc_key}
-
-    res2 = requests.get(url2, headers=HEADERS)
-    data3[i] = res2.json()
-#     print(data3[i])
-    data3[i] = data3[i]["data"]["candles"]
-    data3[i] = pd.DataFrame(data3[i])
-    data3[i] = data3[i].rename(
-        columns={0: 'Time', 1: 'Open', 2: 'High', 3: 'Low', 4: 'Close', 5: 'Volume'})
-
-# print(data2, "daaataaa")
+# # print(data2, "daaataaa")
 
 
-TR1 = data1[0]['Time'].iloc[-1]
-# print(T1)
-Rhr1 = ['' for i in range(len(dict3))]
-Rmin1 = ['' for i in range(len(dict3))]
-Shr1 = ['' for i in range(len(dict3))]
-Smin1 = ['' for i in range(len(dict3))]
-Mhr1 = ['' for i in range(len(dict3))]
-Mmin1 = ['' for i in range(len(dict3))]
-TR1 = TR1.split('T')[1]
-for i in range(len(dict3)):
-    Rhr1[i] = int(TR1.split(':')[0])
-    Rmin1[i] = int(TR1.split(':')[1])
+# TR1 = data1[0]['Time'].iloc[-1]
+# # print(T1)
+# Rhr1 = ['' for i in range(len(dict3))]
+# Rmin1 = ['' for i in range(len(dict3))]
+# Shr1 = ['' for i in range(len(dict3))]
+# Smin1 = ['' for i in range(len(dict3))]
+# Mhr1 = ['' for i in range(len(dict3))]
+# Mmin1 = ['' for i in range(len(dict3))]
+# TR1 = TR1.split('T')[1]
+# for i in range(len(dict3)):
+#     Rhr1[i] = int(TR1.split(':')[0])
+#     Rmin1[i] = int(TR1.split(':')[1])
 
-TS1 = data2[0]['Time'].iloc[-1]
-# print(TS1)
-TS1 = TS1.split('T')[1]
-for i in range(len(dict3)):
-    Shr1[i] = int(TS1.split(':')[0])
-    Smin1[i] = int(TS1.split(':')[1])
+# TS1 = data2[0]['Time'].iloc[-1]
+# # print(TS1)
+# TS1 = TS1.split('T')[1]
+# for i in range(len(dict3)):
+#     Shr1[i] = int(TS1.split(':')[0])
+#     Smin1[i] = int(TS1.split(':')[1])
 
-TM1 = data3[0]['Time'].iloc[-1]
-# print(TS1)
-TM1 = TM1.split('T')[1]
-for i in range(len(dict3)):
-    Mhr1[i] = int(TM1.split(':')[0])
-    Mmin1[i] = int(TM1.split(':')[1])
+# TM1 = data3[0]['Time'].iloc[-1]
+# # print(TS1)
+# TM1 = TM1.split('T')[1]
+# for i in range(len(dict3)):
+#     Mhr1[i] = int(TM1.split(':')[0])
+#     Mmin1[i] = int(TM1.split(':')[1])
 
 
 @api_view(['GET', 'POST'])
@@ -1370,15 +1371,43 @@ def livetrade(request):
 def signup(request):
     user = User.objects.create_user(username=request.data['email'], first_name=request.data['firstName'],
                                     last_name=request.data['lastName'], password=request.data['password'])
+    ProfileDB.objects.create(username=user)
+    # to_date=datetime(2015, 10, 9, 23, 55, 59, 342380))
     print(User.objects.all())
     return Response({"sucessful": 1})
 
 
-@api_view(['GET', 'POST'])
+@ api_view(['GET', 'POST'])
+def profile(request):
+    pro = {'email': email, 'firstname': firstname,
+           'lastname': lastname, 'id': id1, 'datejoined': datejoined}
+    print(pro)
+    return Response(pro)
+
+
+email = ''
+firstname = ''
+lastname = ''
+datejoined = ''
+id1 = ''
+
+
+@ api_view(['GET', 'POST'])
 def signin(request):
     print(request, "request")
     user = authenticate(
         username=request.data['email'], password=request.data['password'])
+    print(user)
+    u = User.objects.get(username=request.data['email'])
+    print(u.id, "u")
+    global email, firstname, lastname, id1, datejoined
+    datejoined = u.date_joined.strftime("%m/%d/%Y")
+
+    email = u.username
+    firstname = u.first_name
+    lastname = u.last_name
+    id1 = u.id
+    # datejoined = u.date_joined
     if user is not None:
         print("yes")
         return Response({"sucessful": True})

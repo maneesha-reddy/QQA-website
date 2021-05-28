@@ -36,6 +36,7 @@ ALLOWED_HOSTS = ['djangoproject.ddns.net',
 INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
+    'phonenumber_field',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -96,12 +97,12 @@ WSGI_APPLICATION = 'quantsite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 # DATABASE = {
 #     'default': {
 #         'ENGINE': 'djongo',
@@ -114,16 +115,17 @@ DATABASES = {
 #         },
 #     }
 # }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'djongo',
-#         'NAME': 'quantwebsite',
-#         'HOST': 'mongodb+srv://maneeshareddy1:quant123@quant.eni7z.mongodb.net/quantwebsite?retryWrites=true&w=majority',
-#         'USER': 'maneeshareddy1',
-#         'PASSWORD': 'quant123',
-#         "authMechanism": "SCRAM-SHA-1"
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'quantwebsite',
+        # 'HOST': 'mongodb+srv://maneeshareddy1:quant123@quant.eni7z.mongodb.net/quantwebsite?retryWrites=true&w=majority',
+        'HOST': 'mongodb+srv://maneeshareddy1:quant123@quant.eni7z.mongodb.net/quantwebsite?retryWrites=true&w=majority',
+        'USER': 'maneeshareddy1',
+        'PASSWORD': 'quant123',
+        "authMechanism": "SCRAM-SHA-1"
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

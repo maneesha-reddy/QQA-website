@@ -7,12 +7,12 @@ import { Statistic, Card, Row, Col, Divider } from "antd";
 import { ArrowUpOutlined, ArrowDownOutlined } from "@ant-design/icons";
 import { Layout, Menu, Breadcrumb } from "antd";
 import { HomeOutlined } from "@ant-design/icons";
-// export const socket = io("http://localhost:8000", {
-//   transports: ["websocket"],
-// });
-export const socket = io("https://quantqalgo.ddns.net/", {
+export const socket = io("http://localhost:8000", {
   transports: ["websocket"],
 });
+// export const socket = io("https://quantqalgo.ddns.net/", {
+//   transports: ["websocket"],
+// });
 class DashBoard extends Component {
   constructor(props) {
     super(props);
@@ -36,12 +36,12 @@ class DashBoard extends Component {
     };
   }
   componentDidMount() {
-    // const socket = io("http://127.0.0.1:8000/", {
-    //   transports: ["websocket"],
-    // });
-    const socket = io("https://quantqalgo.ddns.net/", {
+    const socket = io("http://127.0.0.1:8000/", {
       transports: ["websocket"],
     });
+    // const socket = io("https://quantqalgo.ddns.net/", {
+    //   transports: ["websocket"],
+    // });
     console.log(socket, "socket");
     socket.on("niftidata", this.handleniftiData);
     socket.on("niftitime", this.handleniftiLabel);
@@ -139,7 +139,11 @@ class DashBoard extends Component {
         </Breadcrumb>
         <Row gutter={16}>
           <Col span={6}>
-            <Card style={{ height: "250px" }} bordered={false} className="Card">
+            <Card
+              style={{ height: "250px" }}
+              // bordered={false}
+              className="Card"
+            >
               <Statistic
                 title="NIFTI 50"
                 value={this.state.nltp[0]}
@@ -168,17 +172,18 @@ class DashBoard extends Component {
                 labels={this.state.lablesnifti}
                 data={this.state.datanifti}
                 title="nifti"
-                // grad="#3399ff"
-                // border="#4d94ff"
-                border="#e6e600"
-                grad="#d7af13"
+                grad="#3399ff"
+                border="#4d94ff"
+                // border="#e6e600"
+                // grad="#d7af13"
               />
             </Card>
           </Col>
           <Col span={6}>
             <Card
               // style={{ width: "45vh", height: "35vh" }}
-              bordered={false}
+              // bordered={false}
+              style={{ height: "250px" }}
               className="Card"
             >
               <Statistic
@@ -217,8 +222,9 @@ class DashBoard extends Component {
           </Col>
           <Col span={6}>
             <Card
+              style={{ height: "250px" }}
               //  style={{ width: "45vh", height: "35vh" }}
-              bordered={false}
+              // bordered={false}
               className="Card"
             >
               <Statistic
@@ -256,8 +262,9 @@ class DashBoard extends Component {
           </Col>
           <Col span={6}>
             <Card
+              style={{ height: "250px" }}
               // style={{ width: "45vh", height: "35vh" }}
-              bordered={false}
+              // bordered={false}
               className="Card"
             >
               <Statistic

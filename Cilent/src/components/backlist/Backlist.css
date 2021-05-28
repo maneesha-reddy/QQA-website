@@ -36,9 +36,9 @@
 /* #root > section > section > aside > div > ul{ */
 /* background-color: #051923;
 } */
-.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+/* .ant-menu-dark .ant-menu-inline.ant-menu-sub {
   background-color: #9ecb35;
-}
+} */
 /* #root
   > section
   > section
@@ -50,6 +50,7 @@
 } */
 .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
   background-color: #9ecb35;
+  /* background-color: #FF3A00 */
 }
 /* #root > section > section > section > main > div.ant-row.ant-row-center > div > div > div > form > div:nth-child(1) > div.ant-col.ant-col-4 > button:nth-child(1){
     background-color:#009900;

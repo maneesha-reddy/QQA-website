@@ -8,7 +8,8 @@ urlpatterns = [
     path('papertrade/', views.papertrade, name='paper'),
     path('livetrade/', views.livetrade, name='live'),
     path('signup/', views.signup, name='signup'),
-    path('signin/', views.signin, name='signin')
+    path('signin/', views.signin, name='signin'),
+    path('profile/', views.profile, name='profile')
 ]
 
 # views.startup()

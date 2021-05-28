@@ -15,6 +15,8 @@ import { notification, Space } from "antd";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { Layout, Menu, Breadcrumb } from "antd";
+import LoginTopBar from "../logintopbar/loginTopbar";
+import design4 from "../topbar/Design1.png";
 const { Header, Content } = Layout;
 class SignIn extends Component {
   constructor(props) {
@@ -47,33 +49,40 @@ class SignIn extends Component {
     };
     const onFinish = (values) => {
       console.log("Success:", values);
-      // let url = "http://127.0.0.1:8000/website/signin/";
-      let url = "https://quantqalgo.ddns.net/website/signin/";
-      // axios.post(url, values, {}).then((res) => {
-      //   console.warn(res.data["sucessful"], "sc");
-      //   this.props.auth(res.data["sucessful"]);
-      //   this.setState({ log: res.data["sucessful"] });
-      // });
+      let url = "http://127.0.0.1:8000/website/signin/";
+      // let url = "https://quantqalgo.ddns.net/website/signin/";
+      axios.post(url, values, {}).then((res) => {
+        console.warn(res.data["sucessful"], "sc");
+        // this.props.auth(res.data["sucessful"]);
+        // this.setState({ log: res.data["sucessful"] });
+      });
       this.props.auth(true);
       this.setState({ log: true });
+      // if (this.state.log == true) {
+      //   // notification.open({
+      //   //   // message: "Notification Title",
+      //   //   description: (
+      //   return (
+      //     <Snackbar
+      //       open={this.state.open}
+      //       autoHideDuration={6000}
+      //       onClose={handleClose}
+      //     >
+      //       <Alert onClose={handleClose} severity="success">
+      //         sucessfully logged in!
+      //       </Alert>
+      //     </Snackbar>
+      //   );
+      //   // ;
+      //   // ),
+      //   // });
+      //   history.push("/dashboard");
+      // }
       if (this.state.log == true) {
-        // notification.open({
-        //   // message: "Notification Title",
-        //   description: (
-        return (
-          <Snackbar
-            open={this.state.open}
-            autoHideDuration={6000}
-            onClose={handleClose}
-          >
-            <Alert onClose={handleClose} severity="success">
-              sucessfully logged in!
-            </Alert>
-          </Snackbar>
-        );
-        // ;
-        // ),
-        // });
+        notification.open({
+          message: "Notification Title",
+          description: "success",
+        });
         history.push("/dashboard");
       } else {
         notification["error"]({
@@ -88,100 +97,120 @@ class SignIn extends Component {
     };
     const { location, history } = this.props;
     return (
-      <Layout className="site-layout">
-        {/* style={{backgroundColor: "#cff6cf"  */}
-        <Header className="site-layout-background" style={{ padding: 0 }} />
-        <Content style={{ margin: "0 16px" }}>
-          <Card style={{ width: 500 }} hoverable={true} bordered={false}>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <CssBaseline />
-              <LockTwoTone
-                twoToneColor="#eb2f96"
-                size="large"
-                style={{ alignContent: "center" }}
-              />
-
-              <Typography component="h1" variant="h5">
-                Sign in
-              </Typography>
-              <Form
-                name="basic"
-                initialValues={{ remember: true }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                validateMessages={validateMessages}
+      <>
+        {/* <LoginTopBar
+          toogleTheme={this.toogleTheme}
+          darkmode={this.state.darkmode}
+        /> */}
+        <Layout className="site-layout">
+          <Header
+            className="site-layout-background"
+            style={{
+              padding: 0,
+              background: "linear-gradient(to right, #ff4600 0%, #ffa833 100%)",
+            }}
+          />
+          <Content style={{ margin: "0 16px" }}>
+            <Card style={{ width: 500 }} hoverable={true} bordered={false}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
               >
-                <Form.Item
-                  // label="Email Address"
-                  name="email"
-                  rules={[
-                    {
-                      type: "email",
-                      required: true,
-                      message: "Please input your valid email!",
-                    },
-                  ]}
-                >
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    autoComplete="email"
-                    autoFocus
-                  />
-                </Form.Item>
-                <Form.Item
-                  // label="Password"
-                  name="password"
-                  rules={[
-                    { required: true, message: "Please input your password!" },
-                  ]}
-                >
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                  />
-                </Form.Item>
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
+                <CssBaseline />
+                <img
+                  src={design4}
+                  style={{ height: "auto", width: "150px" }}
+                  className="img-responsive"
+                  alt=""
+                />{" "}
+                <br />
+                <LockTwoTone
+                  twoToneColor="#eb2f96"
+                  size="large"
+                  style={{ alignContent: "center" }}
                 />
-                <Form.Item>
-                  {/* <NavLink to="/"> */}
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
+                <Typography component="h1" variant="h5">
+                  Sign in
+                </Typography>
+                <Form
+                  name="basic"
+                  initialValues={{ remember: true }}
+                  onFinish={onFinish}
+                  onFinishFailed={onFinishFailed}
+                  validateMessages={validateMessages}
+                >
+                  <Form.Item
+                    // label="Email Address"
+                    name="email"
+                    rules={[
+                      {
+                        type: "email",
+                        required: true,
+                        message: "Please input your valid email!",
+                      },
+                    ]}
                   >
-                    Sign In
-                  </Button>
-                  {/* </NavLink> */}
-                </Form.Item>
-                {/* <NavLink to="/dashboard">Forgot password?</NavLink> */}
-                <NavLink to="/SignUp">Don't have an account? Sign Up</NavLink>
-              </Form>
-            </div>
-          </Card>
-        </Content>
-      </Layout>
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="email"
+                      label="Email Address"
+                      name="email"
+                      autoComplete="email"
+                      autoFocus
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    // label="Password"
+                    name="password"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your password!",
+                      },
+                    ]}
+                  >
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="password"
+                      label="Password"
+                      type="password"
+                      id="password"
+                      autoComplete="current-password"
+                    />
+                  </Form.Item>
+                  <FormControlLabel
+                    control={<Checkbox value="remember" color="primary" />}
+                    label="Remember me"
+                  />
+                  <Form.Item>
+                    {/* <NavLink to="/"> */}
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                    >
+                      Sign In
+                    </Button>
+                    {/* </NavLink> */}
+                  </Form.Item>
+                  {/* <NavLink to="/dashboard">Forgot password?</NavLink> */}
+                  <NavLink to="/SignUp">Don't have an account? Sign Up</NavLink>
+                </Form>
+              </div>
+            </Card>
+          </Content>
+        </Layout>
+      </>
     );
   }
 }
