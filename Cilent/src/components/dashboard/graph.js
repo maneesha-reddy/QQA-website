@@ -85,7 +85,7 @@ class Graph extends Component {
             },
           };
         return ( 
-            <div style={{width:"230px",height:"150px"}}>
+            <div>
                 <Line data={data} options={options}/>
             </div>
           );

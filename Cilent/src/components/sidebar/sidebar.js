@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Layout, Menu } from "antd";
 import "antd/dist/antd.css";
+import "./sidebar.css";
 
 import {
   DesktopOutlined,
@@ -32,8 +33,14 @@ class SideBar extends Component {
         onCollapse={(collapsed, type) => {
           console.log(collapsed, type);
         }}
+        
         style={{
+          overflow: 'auto',
+          height: '100vh',
+          position: 'fixed',
           marginTop: 64,
+          color: "black",
+          left: 0,
         }}
       >
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">

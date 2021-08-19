@@ -100,14 +100,16 @@ WSGI_APPLICATION = 'quantsite.wsgi.application'
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#         'NAME': str(BASE_DIR / 'db.sqlite3'),
+#         # 'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
 # DATABASE = {
 #     'default': {
 #         'ENGINE': 'djongo',
+#         'NAME': 'quantwebsite',
 #         "CLIENT": {
-#             "name": "quantwebsite",
+#             # "name": "quantwebsite",
 #             "host": "mongodb+srv://maneeshareddy1:quant123@quant.eni7z.mongodb.net/quantwebsite?retryWrites=true&w=majority",
 #             "username": "maneeshareddy1",
 #             "password": "quant123",
@@ -118,14 +120,32 @@ WSGI_APPLICATION = 'quantsite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'quantwebsite',
-        # 'HOST': 'mongodb+srv://maneeshareddy1:quant123@quant.eni7z.mongodb.net/quantwebsite?retryWrites=true&w=majority',
-        'HOST': 'mongodb+srv://maneeshareddy1:quant123@quant.eni7z.mongodb.net/quantwebsite?retryWrites=true&w=majority',
-        'USER': 'maneeshareddy1',
-        'PASSWORD': 'quant123',
-        "authMechanism": "SCRAM-SHA-1"
+        'NAME': 'Quant',
+        'ENFORCE_SCHEMA': False,
+        'CLIENT': {
+                # 'host': 'mongodb+srv://maneeshareddy:<quant123>@cluster0.otsys.mongodb.net/Quant?ssl=true&ssl_cert_reqs=CERT_NONE&retryWrites=true&w=majority',
+                'host': 'mongodb+srv://maneeshareddy1:quant123@quant.eni7z.mongodb.net/quantwebsite?ssl=true&ssl_cert_reqs=CERT_NONE&retryWrites=true&w=majority',
+            "username": "maneeshareddy1",
+            "password": "quant123",
+            # "authMechanism": "SCRAM-SHA-1",
+
+        }
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'quantwebsite',
+#         # 'HOST': 'mongodb+srv://maneeshareddy:<quant123>@cluster0.otsys.mongodb.net/Quant?retryWrites=true&w=majority',
+#         'HOST': 'mongodb+srv://maneeshareddy1:quant123@quant.eni7z.mongodb.net/quantwebsite?ssl=true&ssl_cert_reqs=CERT_NONE',
+#         'USER': 'maneeshareddy1',
+#         'PASSWORD': 'quant123',
+#         "authMechanism": "SCRAM-SHA-1",
+
+
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

@@ -9,7 +9,9 @@ urlpatterns = [
     path('livetrade/', views.livetrade, name='live'),
     path('signup/', views.signup, name='signup'),
     path('signin/', views.signin, name='signin'),
-    path('profile/', views.profile, name='profile')
+    path('profile/', views.profile, name='profile'),
+    path('strategyBuild/', views.strategyBuilding, name='strategyBuilding'),
+    path('profileUpdate/', views.profileUpdate, name='profileUpdate'),
 ]
 
 # views.startup()

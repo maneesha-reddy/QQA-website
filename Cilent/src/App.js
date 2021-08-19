@@ -18,7 +18,7 @@ import LoginTopBar from "./components/logintopbar/loginTopbar";
 import CreateStrategy from "./components/createStrategy/CreateStrategy";
 import Homepage from "./components/homepage/homepage";
 import Profile from "./components/profile/profile";
-import Brokers from './components/brokers/Broker'
+import Brokers from "./components/brokers/Broker";
 const { Header, Content } = Layout;
 
 class App extends React.Component {
@@ -28,6 +28,8 @@ class App extends React.Component {
       collapsed: false,
       authen: false,
       darkmode: "darkmode",
+      username:undefined,
+      firstname:'',
     };
     // this.onAuthenticate = this.onAuthenticate.bind(this);
   }
@@ -38,8 +40,8 @@ class App extends React.Component {
   };
 
   onAuthenticate = (value) => {
-    this.setState({ authen: value });
     console.log(value, "value");
+    this.setState({ authen: value });
   };
 
   toogleTheme = () => {
@@ -59,6 +61,10 @@ class App extends React.Component {
 
   render() {
     // console.log(this.state.authen, "hello");
+    const usernameChange=(val1,val2)=>{
+      console.log(val1,val2)
+      this.setState({ username: val1,firstname:val2 });
+    }
     return (
       <>
         {this.state.authen ? (
@@ -70,6 +76,7 @@ class App extends React.Component {
                 style={{ padding: 100 }}
                 toogleTheme={this.toogleTheme}
                 darkmode={this.state.darkmode}
+                firstname={this.state.firstname}
               />
               <Layout
               // style={{ minHeight: "100vh" }}
@@ -82,7 +89,9 @@ class App extends React.Component {
                     style={{ padding: 0 }}
                   />
                   <Content
-                  // style={{ margin: "0 16px" }}
+                    style={{ marginLeft: 200, padding: "3rem" }}
+
+                    // style={{ margin: "0 16px" }}
                   >
                     <Switch>
                       <Route
@@ -92,12 +101,19 @@ class App extends React.Component {
                       <Route path="/backtest" component={Backlist}></Route>
                       <Route path="/paperTrade" component={PaperTrade}></Route>
                       <Route path="/liveTrade" component={LiveTrade}></Route>
-                      <Route path="/profile" component={Profile}></Route>
+                      <Route path="/profile" render={(props) => <Profile {...props}  user={this.state.username} />}></Route>
                       <Route path="/brokers" component={Brokers}></Route>
                       <Route
                         path="/createTrade"
                         component={CreateStrategy}
                       ></Route>
+                      <Route path="/SignUp" component={SignUp}></Route>
+                      <Route
+                        path="/SignIn"
+                        render={(props) => <SignIn {...props} auth={this.onAuthenticate}  usernameChange={usernameChange} />}
+                      />
+
+                      <Route path="/" component={DashBoard}></Route>
                     </Switch>
                   </Content>
                 </Layout>
@@ -106,32 +122,24 @@ class App extends React.Component {
           </>
         ) : (
           <>
-            {/* <LoginTopBar
-                toogleTheme={this.toogleTheme}
-                darkmode={this.state.darkmode}
-              />
-              <Layout className="site-layout">
-                style={{backgroundColor: "#cff6cf" }
-                <Header
-                  className="site-layout-background"
-                  style={{ padding: 0 }}
-                />
-                <Content
-                  style={{ margin: "0 16px" }}
-                > */}
             <Layout className={this.state.darkmode}>
-              <Switch>
-                <Route path="/SignUp" component={SignUp}></Route>
-                <Route
-                  path="/SignIn"
-                  render={(props) => (
-                    <SignIn {...props} auth={this.onAuthenticate} />
-                  )}
-                />
-                <Route path="/" component={Homepage}></Route>
-              </Switch>
-              {/* </Content>
-              </Layout> */}
+              {/* <Content > */}
+                <Switch>
+                  <Route path="/SignUp" component={SignUp}></Route>
+                  <Route
+                    path="/SignIn"
+                    render={(props) => (
+                      <SignIn {...props} auth={this.onAuthenticate}  usernameChange={usernameChange} />
+                    )}
+                  />
+                  <Route
+                    path="/"
+                    render={(props) => (
+                      <SignIn {...props} auth={this.onAuthenticate} usernameChange={usernameChange}  />
+                    )}
+                  ></Route>
+                </Switch>
+              {/* </Content> */}
             </Layout>
           </>
         )}

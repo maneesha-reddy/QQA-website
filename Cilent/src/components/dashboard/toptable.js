@@ -73,8 +73,8 @@ class TopTable extends Component {
         columns={columns}
         dataSource={data}
         pagination={false}
-        size="small"
-        style={{ width: "70vh", backgroundColor: "black", color: "white" }}
+        // size="small"
+        // style={{ width: "70vh", backgroundColor: "black", color: "white" }}
       />
     );
   }

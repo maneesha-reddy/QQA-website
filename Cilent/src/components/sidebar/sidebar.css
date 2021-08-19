@@ -1,0 +1,44 @@
+@import "~antd/dist/antd.css";
+.ant-layout-sider-children {
+  background-color: #082b6b;
+}
+.MuiSelect-filled.MuiSelect-filled {
+  padding-right: 200px;
+}
+.style {
+  padding-left: 50px;
+}
+.ant-input {
+  width: 80%;
+}
+.MuiOutlinedInput-input {
+  padding: 14px 4px;
+}
+.ant-form-item-label > label {
+  font-weight: bold;
+}
+.ant-select-single .ant-select-selector .ant-select-selection-item {
+  font-weight: 400;
+}
+
+#border {
+  padding: 30px;
+}
+/* .ant-layout-sider-children {
+  background-color: #051923;
+} */
+.ant-menu-dark.ant-menu-inline {
+  /* background-color: #051923; */
+  /* background-color: #e48005; */
+  background-color: #082b6b;
+}
+.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  /* background-color: #9ecb35; */
+  background-color: #e48005
+  /* background-color:white; */
+  
+}
+.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+    /* background: #000c17; */
+    background: #082b6b;
+}

@@ -337,9 +337,9 @@ class PaperTrade extends Component {
     const onFinish = (values) => {
       console.log("Success:", values);
       this.setState({ paper: true });
-      let url = "https://quantqalgo.ddns.net/website/papertrade/";
+      // let url = "https://quantqalgo.ddns.net/website/papertrade/";
 
-      // let url = "http://127.0.0.1:8000/website/papertrade/";
+      let url = "http://127.0.0.1:8000/website/papertrade/";
       axios.post(url, values, {}).then((res) => {
         console.warn(res.data);
       });
@@ -365,6 +365,28 @@ class PaperTrade extends Component {
     const tailLayout = {
       wrapperCol: { offset: 8, span: 16 },
     };
+    const formItemLayout = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 8 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 16 },
+      },
+    };
+    const tailFormItemLayout = {
+      wrapperCol: {
+        xs: {
+          span: 24,
+          offset: 0,
+        },
+        sm: {
+          span: 16,
+          offset: 8,
+        },
+      },
+    };
     return (
       <div>
         <Breadcrumb style={{ margin: "16px 0" }}>
@@ -382,7 +404,7 @@ class PaperTrade extends Component {
             style={{ width: 700 }}
             bordered={false}
           >
-            <Form {...layout} name="basic" onFinish={onFinish}>
+            <Form {...formItemLayout} name="basic" onFinish={onFinish}>
               <Row>
                 <Col span={18}>
                   <Form.Item label="Capital" name="capital">
@@ -401,7 +423,7 @@ class PaperTrade extends Component {
                   <InputNumber
                     min={0}
                     max={100000}
-                    style={{ margin: "0 16px" }}
+                    style={{ margin: "0 16px", width: 100 }}
                     step={100}
                     value={inputValue}
                     onChange={this.onChange}
@@ -416,7 +438,7 @@ class PaperTrade extends Component {
               >
                 <Select
                   showSearch
-                  style={{ width: 150 }}
+                  style={{ width: 300 }}
                   placeholder="Strategy"
                   optionFilterProp="children"
                   filterOption={(input, option) =>
@@ -436,13 +458,7 @@ class PaperTrade extends Component {
                 // rules={[{ required: true }]}
                 label="Quantity"
               >
-                <TextField
-                  // style={{ width: 300 }}
-                  id="outlined-basic"
-                  label="Enter Quantity"
-                  variant="outlined"
-                  size="small"
-                />
+                <Input style={{ width: 300 }} placeholder="Enter Quantity" />
               </Form.Item>
               <Form.Item
                 // style={{ fontWeight: "bolder" }}
@@ -480,7 +496,7 @@ class PaperTrade extends Component {
               <Form.Item label="exchange" name="Exchange">
                 <Select
                   showSearch
-                  style={{ width: 200 }}
+                  style={{ width: 300 }}
                   placeholder="Select Exchange"
                   optionFilterProp="children"
                   onChange={this.onChange}
@@ -499,30 +515,7 @@ class PaperTrade extends Component {
                   <Option value="MCX">MCX</Option>
                 </Select>
               </Form.Item>
-              {/* <Form.Item
-          label="Categories"
-          name="Categories"
-          >
-
-          <Select
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Select Exchange"
-              optionFilterProp="children"
-              onChange={this.oncatChange}
-              onFocus={onFocus}
-              onBlur={onBlur}
-              onSearch={onSearch}
-              filterOption={(input, option) =>
-                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-              }
-            > 
-              {titles.map((element) => {
-                    return <Option value={element}> {element}</Option>;
-                  })}
-          </Select>
-
-          </Form.Item> */}
+              
               <Button
                 style={{ color: "#9ECB35", float: "right" }}
                 icon={<PlusOutlined style={{ color: "white" }} />}
@@ -576,10 +569,10 @@ class PaperTrade extends Component {
                 {this.state.exchange == "NSE" ? (
                   <TreeSelect
                     showSearch
-                    style={{ width: "60%" }}
+                    style={{ width: 200 }}
                     treeDataSimpleMode={true}
                     value={this.state.value}
-                    dropdownStyle={{ maxHeight: 400, overflow: "auto" }}
+                    // dropdownStyle={{ maxHeight: 400, overflow: "auto" }}
                     placeholder="Please select"
                     allowClear
                     multiple
@@ -600,7 +593,7 @@ class PaperTrade extends Component {
                 ) : (
                   <Select
                     mode="tags"
-                    style={{ width: "60%" }}
+                    style={{ width: 300 }}
                     placeholder="Stocks"
                     onChange={handleChange}
                   >
@@ -609,7 +602,7 @@ class PaperTrade extends Component {
                 )}
               </Form.Item>
 
-              <Form.Item {...tailLayout}>
+              <Form.Item {...tailFormItemLayout}>
                 <Button type="primary" htmlType="submit">
                   PaperTrade
                 </Button>

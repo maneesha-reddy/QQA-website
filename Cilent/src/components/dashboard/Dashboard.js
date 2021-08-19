@@ -36,7 +36,10 @@ class DashBoard extends Component {
     };
   }
   componentDidMount() {
-    const socket = io("http://127.0.0.1:8000/", {
+    // const socket = io("http://127.0.0.1:8000/", {
+    //   transports: ["websocket"],
+    // });
+    const socket = io("http://localhost:8000", {
       transports: ["websocket"],
     });
     // const socket = io("https://quantqalgo.ddns.net/", {
@@ -130,7 +133,7 @@ class DashBoard extends Component {
 
   render() {
     return (
-      <div>
+      <div >
         <Breadcrumb style={{ margin: "16px 0" }}>
           <Breadcrumb.Item href="">
             <HomeOutlined /> <span>Home</span>
@@ -138,35 +141,33 @@ class DashBoard extends Component {
           <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
         </Breadcrumb>
         <Row gutter={16}>
-          <Col span={6}>
-            <Card
-              style={{ height: "250px" }}
-              // bordered={false}
-              className="Card"
-            >
-              <Statistic
-                title="NIFTI 50"
-                value={this.state.nltp[0]}
-                valueStyle={{ color: "#3f8600" }}
-                // prefix={<ArrowUpOutlined />}
-              />
-              {this.state.nltp[1] > 0 ? (
+          <Col span={12}>
+            <Card className="Card">
+              <Row justify="space-between" align="middle">
                 <Statistic
-                  value={this.state.nltp[1]}
-                  precision={2}
-                  valueStyle={{ color: "#006600" }}
-                  suffix="%"
-                  prefix={<ArrowUpOutlined />}
+                  title="NIFTI 50"
+                  value={this.state.nltp[0]}
+                  valueStyle={{ color: "#3f8600" }}
+                  // prefix={<ArrowUpOutlined />}
                 />
-              ) : (
-                <Statistic
-                  value={this.state.nltp[1]}
-                  precision={2}
-                  valueStyle={{ color: "#cf1322" }}
-                  suffix="%"
-                  prefix={<ArrowDownOutlined />}
-                />
-              )}
+                {this.state.nltp[1] > 0 ? (
+                  <Statistic
+                    value={this.state.nltp[1]}
+                    precision={2}
+                    valueStyle={{ color: "#006600" }}
+                    suffix="%"
+                    prefix={<ArrowUpOutlined />}
+                  />
+                ) : (
+                  <Statistic
+                    value={this.state.nltp[1]}
+                    precision={2}
+                    valueStyle={{ color: "#cf1322" }}
+                    suffix="%"
+                    prefix={<ArrowDownOutlined />}
+                  />
+                )}
+              </Row>
 
               <Graph
                 labels={this.state.lablesnifti}
@@ -179,37 +180,34 @@ class DashBoard extends Component {
               />
             </Card>
           </Col>
-          <Col span={6}>
-            <Card
-              // style={{ width: "45vh", height: "35vh" }}
-              // bordered={false}
-              style={{ height: "250px" }}
-              className="Card"
-            >
-              <Statistic
-                title="SENSEX"
-                value={this.state.sltp[0]}
-                valueStyle={{ color: "#3f8600" }}
-                // prefix={<ArrowUpOutlined />}
-                // suffix="%"
-              />
-              {this.state.sltp[1] > 0 ? (
+          <Col span={12}>
+            <Card className="Card">
+              <Row justify="space-between" align="middle">
                 <Statistic
-                  value={this.state.sltp[1]}
-                  precision={2}
-                  valueStyle={{ color: "#006600" }}
-                  suffix="%"
-                  prefix={<ArrowUpOutlined />}
+                  title="SENSEX"
+                  value={this.state.sltp[0]}
+                  valueStyle={{ color: "#3f8600" }}
+                  // prefix={<ArrowUpOutlined />}
+                  // suffix="%"
                 />
-              ) : (
-                <Statistic
-                  value={this.state.sltp[1]}
-                  precision={2}
-                  valueStyle={{ color: "#cf1322" }}
-                  suffix="%"
-                  prefix={<ArrowDownOutlined />}
-                />
-              )}
+                {this.state.sltp[1] > 0 ? (
+                  <Statistic
+                    value={this.state.sltp[1]}
+                    precision={2}
+                    valueStyle={{ color: "#006600" }}
+                    suffix="%"
+                    prefix={<ArrowUpOutlined />}
+                  />
+                ) : (
+                  <Statistic
+                    value={this.state.sltp[1]}
+                    precision={2}
+                    valueStyle={{ color: "#cf1322" }}
+                    suffix="%"
+                    prefix={<ArrowDownOutlined />}
+                  />
+                )}
+              </Row>
               <Graph
                 labels={this.state.lablessensex}
                 data={this.state.datasensex}
@@ -220,37 +218,34 @@ class DashBoard extends Component {
               />
             </Card>
           </Col>
-          <Col span={6}>
-            <Card
-              style={{ height: "250px" }}
-              //  style={{ width: "45vh", height: "35vh" }}
-              // bordered={false}
-              className="Card"
-            >
-              <Statistic
-                title="NIFTY Bank"
-                value={this.state.bltp[0]}
-                valueStyle={{ color: "#3f8600" }}
-                // prefix={<ArrowUpOutlined />}
-                // suffix="%"
-              />
-              {this.state.bltp[1] > 0 ? (
+          <Col span={12}>
+            <Card className="Card">
+              <Row justify="space-between" align="middle">
                 <Statistic
-                  value={this.state.bltp[1]}
-                  precision={2}
-                  valueStyle={{ color: "#006600" }}
-                  suffix="%"
-                  prefix={<ArrowUpOutlined />}
+                  title="NIFTY Bank"
+                  value={this.state.bltp[0]}
+                  valueStyle={{ color: "#3f8600" }}
+                  // prefix={<ArrowUpOutlined />}
+                  // suffix="%"
                 />
-              ) : (
-                <Statistic
-                  value={this.state.bltp[1]}
-                  precision={2}
-                  valueStyle={{ color: "#cf1322" }}
-                  suffix="%"
-                  prefix={<ArrowDownOutlined />}
-                />
-              )}
+                {this.state.bltp[1] > 0 ? (
+                  <Statistic
+                    value={this.state.bltp[1]}
+                    precision={2}
+                    valueStyle={{ color: "#006600" }}
+                    suffix="%"
+                    prefix={<ArrowUpOutlined />}
+                  />
+                ) : (
+                  <Statistic
+                    value={this.state.bltp[1]}
+                    precision={2}
+                    valueStyle={{ color: "#cf1322" }}
+                    suffix="%"
+                    prefix={<ArrowDownOutlined />}
+                  />
+                )}
+              </Row>
               <Graph
                 labels={this.state.lablesbank}
                 data={this.state.databank}
@@ -260,39 +255,36 @@ class DashBoard extends Component {
               />
             </Card>
           </Col>
-          <Col span={6}>
-            <Card
-              style={{ height: "250px" }}
-              // style={{ width: "45vh", height: "35vh" }}
-              // bordered={false}
-              className="Card"
-            >
-              <Statistic
-                title="INDIA VIX"
-                value={this.state.iltp[0]}
-                // value={this.state.iltp[1]}
-                // precision={2}
-                valueStyle={{ color: "#3f8600" }}
+          <Col span={12}>
+            <Card className="Card">
+              <Row justify="space-between" align="middle">
+                <Statistic
+                  title="INDIA VIX"
+                  value={this.state.iltp[0]}
+                  // value={this.state.iltp[1]}
+                  // precision={2}
+                  valueStyle={{ color: "#3f8600" }}
 
-                // suffix="%"
-              />
-              {this.state.iltp[1] > 0 ? (
-                <Statistic
-                  value={this.state.iltp[1]}
-                  precision={2}
-                  valueStyle={{ color: "#006600" }}
-                  suffix="%"
-                  prefix={<ArrowUpOutlined />}
+                  // suffix="%"
                 />
-              ) : (
-                <Statistic
-                  value={this.state.iltp[1]}
-                  precision={2}
-                  valueStyle={{ color: "#cf1322" }}
-                  suffix="%"
-                  prefix={<ArrowDownOutlined />}
-                />
-              )}
+                {this.state.iltp[1] > 0 ? (
+                  <Statistic
+                    value={this.state.iltp[1]}
+                    precision={2}
+                    valueStyle={{ color: "#006600" }}
+                    suffix="%"
+                    prefix={<ArrowUpOutlined />}
+                  />
+                ) : (
+                  <Statistic
+                    value={this.state.iltp[1]}
+                    precision={2}
+                    valueStyle={{ color: "#cf1322" }}
+                    suffix="%"
+                    prefix={<ArrowDownOutlined />}
+                  />
+                )}
+              </Row>
               <Graph
                 labels={this.state.lablesindia}
                 data={this.state.dataindia}
@@ -305,18 +297,20 @@ class DashBoard extends Component {
         </Row>
         <Divider />
         <Row gutter={16} justify="center">
-          <Col span={12}>
+          <Col span={10}  style={{margin:"1.5rem"}}>
             <TopTable
               Name={this.state.gainers}
               data={this.state.gainersltp}
               label="gain"
+             
             />
           </Col>
-          <Col span={12}>
+          <Col span={10} style={{margin:"1.5rem"}}>
             <TopTable
               Name={this.state.loosers}
               data={this.state.loosersltp}
               label="loss"
+              
             />
           </Col>
         </Row>

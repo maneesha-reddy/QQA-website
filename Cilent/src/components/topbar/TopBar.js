@@ -3,14 +3,20 @@ import React from "react";
 import { Layout } from "antd";
 import { NavLink } from "react-router-dom";
 import { Avatar } from "antd";
-import { UserOutlined, BellOutlined, BellFilled } from "@ant-design/icons";
+import {
+  UserOutlined,
+  BellOutlined,
+  BellFilled,
+  DownOutlined,
+} from "@ant-design/icons";
 import "./TopBar.css";
 import { Select, Button } from "antd";
 import design4 from "./Design1.png";
 import design6 from "./Design6.png";
 import logo from "./Design5.png";
 import { Menu } from "antd";
-import { Card } from "antd";
+import { Card, Row, Col, Dropdown } from "antd";
+import logo1 from "./QA-MainWhite.png";
 
 // import { Select } from 'antd';
 // import InputLabel from '@material-ui/core/InputLabel';
@@ -44,104 +50,88 @@ class TopBar extends React.Component {
   };
 
   render() {
+    const menu = (
+      <Menu mode="inline">
+        <Menu.Item key="1">
+          <NavLink to="/profile">MY PROFILE </NavLink>
+        </Menu.Item>
+
+        <Menu.Item key="2">
+          <NavLink to="/subcribe">SUBSCRIPTIONS</NavLink>
+        </Menu.Item>
+
+        <Menu.Item key="3">
+          <NavLink to="/brokers">BROKERS AND EXCHANGES </NavLink>
+        </Menu.Item>
+
+        <Menu.Item key="4">
+          <NavLink to="/invoice">INVOICE</NavLink>
+        </Menu.Item>
+
+        <Menu.Item key="5">
+          <NavLink to="/settings">SETTINGS</NavLink>
+        </Menu.Item>
+
+        <Menu.Item key="6">
+          <NavLink to="/logout">LOGOUT</NavLink>
+        </Menu.Item>
+      </Menu>
+    );
+
     return (
       <Header
         className="header"
-        style={{ position: "fixed", zIndex: 1, width: "100%" }}
+        style={{ position: "fixed", zIndex: 1, width: "100%", height: "68px" }}
       >
-        <div>
-          <NavLink to="">
-            {/* <img className="logo" src={logo} alt="logo"></img> */}
-            <img
-              src={design6}
-              style={{ height: "auto", width: "200px" }}
-              className="img-responsive"
-              alt=""
-            />{" "}
-          </NavLink>
-
-          <Badge
-            className="site-badge-count-109"
-            count={1}
-            style={{
-              backgroundColor: "#f50",
-              position: "absolute",
-              right: "4vh",
-              // top: "2vh",
-            }}
-          >
-            <BellFilled
+        <Row align="middle" justify="center">
+          <Col span={20} pull={1}>
+            <NavLink to="">
+              <img
+                src={logo1}
+                style={{ height: "auto", width: "200px" }}
+                className="img-responsive"
+                alt="logo"
+              />
+            </NavLink>
+          </Col>
+          <Col span={1} push={2} style={{ display: "flex" }}>
+            <Badge
+              className="site-badge-count-109"
+              count={1}
               style={{
-                fontSize: "25px",
-                color: "#52c41a",
-                position: "absolute",
-                right: "4vh",
-                // top: "2vh",
+                backgroundColor: "#f50",
               }}
-            />
-          </Badge>
-          {/* <div> */}
-          <Avatar
-            style={{
-              backgroundColor: "#87d068",
-              position: "absolute",
-              right: "2vh",
-              top: "2vh",
-            }}
-            size="large"
-            icon={<UserOutlined />}
-          />
-
-          <div className="select">
-            <Menu
-              // defaultSelectedKeys={["1"]}
-              // defaultOpenKeys={["sub1"]}
-              mode="inline"
-              style={{ width: 100 }}
-              // theme="dark"
-              // inlineCollapsed={this.state.collapsed}
             >
-              <SubMenu
-                key="sub1"
-                title="My Account"
+              <BellFilled
                 style={{
-                  width: 150,
-                  position: "absolute",
-                  top: "2.5vh",
-                  right: "6vh",
-                  backgroundColor: "transparent",
-                  border: "transparent",
-                  color: "white",
+                  fontSize: "25px",
+                  color: "#082b6b",
                 }}
+              />
+            </Badge>
+          </Col>
+          <Col span={3} push={2}>
+            <Dropdown overlay={menu} trigger={["click"]}>
+              <Avatar
+                size={80}
+                style={{
+                  backgroundColor: "#082b6b",
+                }}
+                size="large"
               >
-                <Menu.Item key="1">
-                  <NavLink to="/profile">MY PROFILE </NavLink>
-                </Menu.Item>
+                {this.props.firstname[0]}
+              </Avatar>
+            </Dropdown>
+          </Col>
+        </Row>
+        {/* <div> */}
+        {/* <div> */}
 
-                <Menu.Item key="2">
-                  <NavLink to="/subcribe">SUBSCRIPTIONS</NavLink>
-                </Menu.Item>
+        {/* <div className="select">
+           
+          </div> */}
 
-                <Menu.Item key="3">
-                  <NavLink to="/brokers">BROKERS AND EXCHANGES </NavLink>
-                </Menu.Item>
-
-                <Menu.Item key="4">
-                  <NavLink to="/invoice">INVOICE</NavLink>
-                </Menu.Item>
-
-                <Menu.Item key="5">
-                  <NavLink to="/settings">SETTINGS</NavLink>
-                </Menu.Item>
-
-                <Menu.Item key="6">
-                  <NavLink to="/logout">LOGOUT</NavLink>
-                </Menu.Item>
-              </SubMenu>
-            </Menu>
-          </div>
-
-          {/* <div className="select">
+        {/* <div className="select">
           <Select
             className="dropdownbutton"
             defaultValue="My Account"
@@ -177,16 +167,16 @@ class TopBar extends React.Component {
             <Option value="Logout">Logout</Option>
           </Select>
         </div> */}
-          {/* <Button
+        {/* <Button
           type={props.darkmode ? "dashed" : "primary"}
           onClick={props.toogleTheme}
           style={{ position: "absolute", top: "2.5vh" }}
         >
           Dark
         </Button> */}
-          {/* </div> */}
-          {/* <Button onClick = {toogleTheme}>Dark mode</Button> */}
-        </div>
+        {/* </div> */}
+        {/* <Button onClick = {toogleTheme}>Dark mode</Button> */}
+        {/* </div> */}
       </Header>
     );
   }

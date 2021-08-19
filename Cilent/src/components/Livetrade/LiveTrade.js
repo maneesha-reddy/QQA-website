@@ -55,6 +55,11 @@ class Livetrade extends Component {
       tradetoken: [],
       pcapital: 0,
       titles: ["Bank Sector", "IT sector"],
+      indTitles: ["Indicator", "Ind"],
+      indi: [
+        ["1", "2"],
+        ["2", "3"],
+      ],
       ex: [
         ['"BANKBARODA"', '"HDFC"', '"HDFCBANK"', '"HDFCLIFE"'],
         ['"WIPRO"', '"LT"', '"TCS"', '"INFY"'],
@@ -150,7 +155,7 @@ class Livetrade extends Component {
   };
 
   render() {
-    const { titles, ex } = this.state;
+    const { titles, ex, indi, indTitles } = this.state;
     const children1 = [];
     const { Option } = Select;
     for (let i = 10; i < 36; i++) {
@@ -280,6 +285,7 @@ class Livetrade extends Component {
         console.warn(res.data);
       });
     };
+    const indicators = ["RSID", "MSID"];
 
     const nfo = [
       '"ACC"',
@@ -458,7 +464,7 @@ class Livetrade extends Component {
     };
 
     const FirstData = (value) => {
-      const { ex, titles } = this.state;
+      const { ex, titles, indTitles, indi } = this.state;
       // console.log("hello");
       if (value == 0) {
         return (
@@ -467,7 +473,7 @@ class Livetrade extends Component {
             <Form.Item name={["user", "Strategy"]} label="Strategy">
               <Select
                 showSearch
-                style={{ width: 150 }}
+                style={{ width: 300 }}
                 placeholder="Strategy"
                 optionFilterProp="children"
                 filterOption={(input, option) =>
@@ -481,6 +487,7 @@ class Livetrade extends Component {
                 })}
               </Select>
             </Form.Item>
+
             <Divider />
           </>
         );
@@ -491,13 +498,13 @@ class Livetrade extends Component {
             <Divider />
             <Row>
               <Col span={12}>
-                <Button style={{ backgroundColor: "#9ECB35" }} shape="round">
+                <Button style={{ backgroundColor: "#e48005" }} shape="round">
                   Set capital after
                 </Button>
               </Col>
               <Col span={12}>
                 <Button
-                  style={{ backgroundColor: "#9ECB35" }}
+                  style={{ backgroundColor: "#e48005" }}
                   onClick={this.onButtonChange}
                   shape="round"
                 >
@@ -515,6 +522,7 @@ class Livetrade extends Component {
                     // rules={[{ required: true }]}
                   >
                     <InputNumber
+                      style={{ width: 300 }}
                       size="small"
                       min={1}
                       max={10000000}
@@ -529,7 +537,7 @@ class Livetrade extends Component {
                   >
                     <Select
                       showSearch
-                      style={{ width: 150 }}
+                      style={{ width: 300 }}
                       placeholder="Leverage"
                       optionFilterProp="children"
                       filterOption={(input, option) =>
@@ -551,7 +559,7 @@ class Livetrade extends Component {
                   >
                     <Select
                       showSearch
-                      style={{ width: 150 }}
+                      style={{ width: 300 }}
                       placeholder="Slots"
                       optionFilterProp="children"
                       onChange={(e) => onFormChange("slot", e)}
@@ -574,7 +582,7 @@ class Livetrade extends Component {
             <Form.Item name="exchange" label="Exchange">
               <Select
                 showSearch
-                style={{ width: 150 }}
+                style={{ width: 300 }}
                 placeholder="Exchange"
                 optionFilterProp="children"
                 onChange={(e) => onFormChange("exchange", e)}
@@ -641,7 +649,7 @@ class Livetrade extends Component {
               {this.state.exchange == "NSE" ? (
                 <TreeSelect
                   showSearch
-                  style={{ width: "60%" }}
+                  style={{ width: 300 }}
                   treeDataSimpleMode={true}
                   // value={this.state.value}
                   dropdownStyle={{ maxHeight: 400, overflow: "auto" }}
@@ -666,7 +674,7 @@ class Livetrade extends Component {
               ) : (
                 <Select
                   mode="tags"
-                  style={{ width: "60%" }}
+                  style={{ width: 300 }}
                   placeholder="Stocks"
                   onChange={(e) => onFormChange("company", e)}
                 >
@@ -681,7 +689,7 @@ class Livetrade extends Component {
             >
               <Select
                 showSearch
-                style={{ width: 150 }}
+                style={{ width: 300 }}
                 placeholder="Order Type"
                 optionFilterProp="children"
                 onChange={(e) => onFormChange("order", e)}
@@ -701,7 +709,7 @@ class Livetrade extends Component {
             >
               <Select
                 showSearch
-                style={{ width: 150 }}
+                style={{ width: 300 }}
                 placeholder="Product"
                 optionFilterProp="children"
                 onChange={(e) => onFormChange("product", e)}
@@ -733,241 +741,242 @@ class Livetrade extends Component {
           <Breadcrumb.Item>Deployment</Breadcrumb.Item>
           <Breadcrumb.Item>Livetrade</Breadcrumb.Item>
         </Breadcrumb>
-        {/* <Row>
-          <Col> */}
-        {!this.state.runstrategy && (
-          <Card hoverable style={{ width: 700 }}>
-            <Steps current={this.state.current}>
-              {steps.map((item) => (
-                <Step key={item.title} title={item.title} />
-              ))}
-            </Steps>
-            <Form
-              name="nest-messages"
-              onFinish={onFinish}
-              validateMessages={validateMessages}
-            >
-              <div className="steps-content">
-                {FirstData(this.state.current)}
-              </div>
-              <div className="steps-action">
-                {this.state.current === steps.length - 1 && (
-                  <Button
-                    type="primary"
-                    // htmlType="submit"
-                    onClick={onClick}
-                  >
-                    Run Strategy
-                  </Button>
-                )}
-
-                {this.state.current < steps.length - 1 &&
-                  this.state.current == 0 && (
-                    <Button type="primary" onClick={() => next()}>
-                      Deploy Strategy
-                    </Button>
-                  )}
-                {this.state.current < steps.length - 1 &&
-                  this.state.current != 0 && (
-                    <Button type="primary" onClick={() => next()}>
-                      Next
+        <Row align="middle" justify="center">
+          {!this.state.runstrategy && (
+            <Card hoverable style={{ width: 700 }}>
+              <Steps current={this.state.current}>
+                {steps.map((item) => (
+                  <Step key={item.title} title={item.title} />
+                ))}
+              </Steps>
+              <Form
+                layout="vertical"
+                name="nest-messages"
+                onFinish={onFinish}
+                validateMessages={validateMessages}
+              >
+                <div className="steps-content">
+                  {FirstData(this.state.current)}
+                </div>
+                <div className="steps-action">
+                  {this.state.current === steps.length - 1 && (
+                    <Button
+                      type="primary"
+                      // htmlType="submit"
+                      onClick={onClick}
+                    >
+                      Run Strategy
                     </Button>
                   )}
 
-                {this.state.current > 0 && (
-                  <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
-                    Previous
-                  </Button>
-                )}
-              </div>
-            </Form>
-          </Card>
-        )}
+                  {this.state.current < steps.length - 1 &&
+                    this.state.current == 0 && (
+                      <Button type="primary" onClick={() => next()}>
+                        Deploy Strategy
+                      </Button>
+                    )}
+                  {this.state.current < steps.length - 1 &&
+                    this.state.current != 0 && (
+                      <Button type="primary" onClick={() => next()}>
+                        Next
+                      </Button>
+                    )}
 
-        {this.state.runstrategy == true && (
-          <>
-            {/* <Card hoverable style={{ width: 1200 }}> */}
-            <Row>
-              <Col span={6}>
-                <Card hoverable>
-                  <Statistic
-                    title="Capital"
-                    value={this.state.capital}
-                    valueStyle={{ color: "#3f8600" }}
-                  />
-                </Card>
-              </Col>
-              <Col span={6}>
-                <Card hoverable>
-                  <Statistic
-                    title="Strategy"
-                    value={this.state.strategy}
-                    precision={"running"}
-                    valueStyle={{ color: "#3f8600" }}
-                  />
-                </Card>
-              </Col>
-              <Col span={6}>
-                <Card hoverable>
-                  <Statistic
-                    title="Leverage"
-                    value={this.state.leverage}
-                    valueStyle={{ color: "#3f8600" }}
-                  />
-                </Card>
-              </Col>
-              <Col span={6}>
-                <Card hoverable>
-                  <Statistic
-                    title="Slots"
-                    value={this.state.slot}
-                    valueStyle={{ color: "#3f8600" }}
-                  />
-                </Card>
-              </Col>
-            </Row>
-            {/* </Card> */}
-            <Divider />
-            <Row>
-              <Col span={16}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <Grid container justify="center" spacing={2}>
-                      {children.map((value) => (
-                        <Grid key={value} item>
-                          <Card
-                            hoverable
-                            style={{ width: 200 }}
-                            title={data[value].title}
-                          >
-                            <List>
-                              <List.Item>
-                                <Tag color="#2db7f5" style={{ width: 80 }}>
-                                  LTP :
-                                </Tag>
-                                {data[value].ltp}
-                              </List.Item>
-                              <List.Item>
-                                <Tag color="#87d068" style={{ width: 80 }}>
-                                  LotSize :
-                                </Tag>
-                                {data[value].size}
-                              </List.Item>
-                              <List.Item>
-                                <Tag color="#108ee9" style={{ width: 80 }}>
-                                  EntryValue :
-                                </Tag>
-                                {data[value].entry}
-                              </List.Item>
-                              <List.Item>
-                                <Tag color="gold" style={{ width: 80 }}>
-                                  Profit/loss :
-                                </Tag>
-                                {data[value].pnl}
-                              </List.Item>
-                              <List.Item>
-                                <Tag color="purple" style={{ width: 80 }}>
-                                  Token :
-                                </Tag>
-                                {data[value].tradetoken}
-                              </List.Item>
-                            </List>
-                            <div>
-                              <Button
-                                size="medium"
-                                type="primary"
-                                onClick={this.showModal}
-                                disabled={
-                                  this.state.auto == true ? true : false
-                                }
-                              >
-                                Place Order
-                              </Button>
-                            </div>
-                          </Card>
-                          <Paper />
-                        </Grid>
-                      ))}
+                  {this.state.current > 0 && (
+                    <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
+                      Previous
+                    </Button>
+                  )}
+                </div>
+              </Form>
+            </Card>
+          )}
+
+          {this.state.runstrategy == true && (
+            <>
+              {/* <Card hoverable style={{ width: 1200 }}> */}
+              <Row>
+                <Col span={6}>
+                  <Card hoverable>
+                    <Statistic
+                      title="Capital"
+                      value={this.state.capital}
+                      valueStyle={{ color: "#3f8600" }}
+                    />
+                  </Card>
+                </Col>
+                <Col span={6}>
+                  <Card hoverable>
+                    <Statistic
+                      title="Strategy"
+                      value={this.state.strategy}
+                      precision={"running"}
+                      valueStyle={{ color: "#3f8600" }}
+                    />
+                  </Card>
+                </Col>
+                <Col span={6}>
+                  <Card hoverable>
+                    <Statistic
+                      title="Leverage"
+                      value={this.state.leverage}
+                      valueStyle={{ color: "#3f8600" }}
+                    />
+                  </Card>
+                </Col>
+                <Col span={6}>
+                  <Card hoverable>
+                    <Statistic
+                      title="Slots"
+                      value={this.state.slot}
+                      valueStyle={{ color: "#3f8600" }}
+                    />
+                  </Card>
+                </Col>
+              </Row>
+              {/* </Card> */}
+              <Divider />
+              <Row>
+                <Col span={16}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Grid container justify="center" spacing={2}>
+                        {children.map((value) => (
+                          <Grid key={value} item>
+                            <Card
+                              hoverable
+                              style={{ width: 200 }}
+                              title={data[value].title}
+                            >
+                              <List>
+                                <List.Item>
+                                  <Tag color="#2db7f5" style={{ width: 80 }}>
+                                    LTP :
+                                  </Tag>
+                                  {data[value].ltp}
+                                </List.Item>
+                                <List.Item>
+                                  <Tag color="#87d068" style={{ width: 80 }}>
+                                    LotSize :
+                                  </Tag>
+                                  {data[value].size}
+                                </List.Item>
+                                <List.Item>
+                                  <Tag color="#108ee9" style={{ width: 80 }}>
+                                    EntryValue :
+                                  </Tag>
+                                  {data[value].entry}
+                                </List.Item>
+                                <List.Item>
+                                  <Tag color="gold" style={{ width: 80 }}>
+                                    Profit/loss :
+                                  </Tag>
+                                  {data[value].pnl}
+                                </List.Item>
+                                <List.Item>
+                                  <Tag color="purple" style={{ width: 80 }}>
+                                    Token :
+                                  </Tag>
+                                  {data[value].tradetoken}
+                                </List.Item>
+                              </List>
+                              <div>
+                                <Button
+                                  size="medium"
+                                  type="primary"
+                                  onClick={this.showModal}
+                                  disabled={
+                                    this.state.auto == true ? true : false
+                                  }
+                                >
+                                  Place Order
+                                </Button>
+                              </div>
+                            </Card>
+                            <Paper />
+                          </Grid>
+                        ))}
+                      </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
 
-                <Modal
-                  title="Place order"
-                  visible={this.state.isModalVisible}
-                  onOk={this.handleOk}
-                  onCancel={this.handleCancel}
-                >
-                  <Form name="basic" onFinish={onModalFinish}>
-                    <Form.Item
-                      name="OrderType"
-                      label="Order Type"
-                      rules={[{ required: true }]}
-                    >
-                      <Select
-                        showSearch
-                        style={{ width: 150 }}
-                        placeholder="Order Type"
-                        optionFilterProp="children"
+                  <Modal
+                    title="Place order"
+                    visible={this.state.isModalVisible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                  >
+                    <Form name="basic" onFinish={onModalFinish}>
+                      <Form.Item
+                        name="OrderType"
+                        label="Order Type"
+                        rules={[{ required: true }]}
                       >
-                        {["market order", "limit order", "stopless order"].map(
-                          (element) => {
+                        <Select
+                          showSearch
+                          style={{ width: 150 }}
+                          placeholder="Order Type"
+                          optionFilterProp="children"
+                        >
+                          {[
+                            "market order",
+                            "limit order",
+                            "stopless order",
+                          ].map((element) => {
                             return <Option value={element}> {element}</Option>;
-                          }
-                        )}
-                      </Select>
-                    </Form.Item>
+                          })}
+                        </Select>
+                      </Form.Item>
 
-                    <Form.Item
-                      name="product"
-                      label="Product"
-                      rules={[{ required: true }]}
-                    >
-                      <Select
-                        showSearch
-                        style={{ width: 150 }}
-                        placeholder="Product"
-                        optionFilterProp="children"
+                      <Form.Item
+                        name="product"
+                        label="Product"
+                        rules={[{ required: true }]}
                       >
-                        {["CNC", "MIS"].map((element) => {
-                          return <Option value={element}> {element}</Option>;
-                        })}
-                      </Select>
-                    </Form.Item>
-                  </Form>
-                </Modal>
-              </Col>
-              <Col span={8}>
-                <TableContainer component={Paper}>
-                  <Table aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Date</TableCell>
-                        <TableCell align="right">Symbol</TableCell>
-                        <TableCell align="right">amount</TableCell>
-                        <TableCell align="right">PNL</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {rows.map((row) => (
-                        <TableRow key={row.date}>
-                          <TableCell component="th" scope="row">
-                            {row.date}
-                          </TableCell>
-                          <TableCell align="right">{row.symbol}</TableCell>
-                          <TableCell align="right">{row.amount}</TableCell>
-                          <TableCell align="right">{row.pnl}</TableCell>
+                        <Select
+                          showSearch
+                          style={{ width: 150 }}
+                          placeholder="Product"
+                          optionFilterProp="children"
+                        >
+                          {["CNC", "MIS"].map((element) => {
+                            return <Option value={element}> {element}</Option>;
+                          })}
+                        </Select>
+                      </Form.Item>
+                    </Form>
+                  </Modal>
+                </Col>
+                <Col span={8}>
+                  <TableContainer component={Paper}>
+                    <Table aria-label="simple table">
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Date</TableCell>
+                          <TableCell align="right">Symbol</TableCell>
+                          <TableCell align="right">amount</TableCell>
+                          <TableCell align="right">PNL</TableCell>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </Col>
-            </Row>
-          </>
-        )}
-        {/* </Col>
-        </Row> */}
+                      </TableHead>
+                      <TableBody>
+                        {rows.map((row) => (
+                          <TableRow key={row.date}>
+                            <TableCell component="th" scope="row">
+                              {row.date}
+                            </TableCell>
+                            <TableCell align="right">{row.symbol}</TableCell>
+                            <TableCell align="right">{row.amount}</TableCell>
+                            <TableCell align="right">{row.pnl}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </Col>
+              </Row>
+            </>
+          )}
+        </Row>
       </div>
     );
   }

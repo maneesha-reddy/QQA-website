@@ -198,6 +198,28 @@ class Backlist extends Component {
     const tailLayout = {
       wrapperCol: { offset: 8, span: 16 },
     };
+    const formItemLayout = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 8 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 16 },
+      },
+    };
+    const tailFormItemLayout = {
+      wrapperCol: {
+        xs: {
+          span: 24,
+          offset: 0,
+        },
+        sm: {
+          span: 16,
+          offset: 8,
+        },
+      },
+    };
     const { size } = this.state.size;
     return (
       <div>
@@ -218,7 +240,11 @@ class Backlist extends Component {
             >
               <div>
                 <Button
-                  style={{ color: "#9ECB35", float: "right" }}
+                  style={{
+                    color: "#9ECB35",
+                    float: "right",
+                    marginRight: "1rem",
+                  }}
                   icon={<PlusOutlined style={{ color: "white" }} />}
                   size="medium"
                   shape="round"
@@ -228,7 +254,7 @@ class Backlist extends Component {
                 ></Button>
                 <Button
                   style={{ color: "#9ECB35", float: "right" }}
-                  icon={<EditOutlined />}
+                  icon={<EditOutlined style={{ color: "black" }} />}
                   size="medium"
                   shape="round"
                   disabled={
@@ -245,21 +271,12 @@ class Backlist extends Component {
               </div>
               <br />
               <br />
-              <Form
-                {...layout}
-                onFinish={this.onFinish}
-                style={{ justifyContent: "left" }}
-              >
-                {/* <Col span={12}> */}
-                {/* <Row>
-                  <Col span={20}> */}
+              <Form {...formItemLayout} onFinish={this.onFinish}>
                 <Form.Item
                   name="name"
                   rules={[{ required: true }]}
                   label="Name"
                 >
-                  {/* <Row gutter={8}>
-                    <Col span={15}> */}
                   <Select
                     showSearch
                     // bordered={false}
@@ -283,10 +300,7 @@ class Backlist extends Component {
                     })}
                   </Select>
                 </Form.Item>
-                {/* </Col> */}
-                {/* <Col span={4}> */}
-                {/* </Col>
-                </Row> */}
+
                 <SecondModel
                   autofill={
                     this.state.operation === "edit"
@@ -299,7 +313,6 @@ class Backlist extends Component {
                   setModal2Visible={this.setModal2Visible}
                 />
                 <Form.Item
-                  style={{ fontWeight: "bolder" }}
                   name="Strategy"
                   label="Strategy"
                   rules={[{ required: true, message: "" }]}
@@ -325,31 +338,31 @@ class Backlist extends Component {
                   rules={[{ required: true }]}
                   label="Quantity"
                 >
-                  <TextField
+                  {/* <TextField
                     style={{ width: 300 }}
                     id="outlined-basic"
                     label="Enter Quantity"
                     variant="outlined"
                     size="small"
-                  />
+                  /> */}
+                  <Input style={{ width: 300 }} placeholder="Enter Quantity" />
                 </Form.Item>
-                {/* </Col> */}
-                {/* <Col span={12}> */}
+
                 <Form.Item
                   name="Initial_Capital"
                   rules={[{ required: true }]}
                   label="Initial Capital"
                 >
-                  <TextField
+                  {/* <TextField
                     style={{ width: 300 }}
                     id="outlined-basic"
                     label="Initial Capital"
                     variant="outlined"
                     size="small"
-                  />
+                  /> */}
+                  <Input style={{ width: 300 }} placeholder="Enter Capital" />
                 </Form.Item>
                 <Form.Item
-                  style={{ fontWeight: "bolder" }}
                   name="Time_frame"
                   label="Time_frame"
                   rules={[{ required: true, message: "" }]}
@@ -385,7 +398,7 @@ class Backlist extends Component {
                   rules={[{ required: true }]}
                   label="From"
                 >
-                  <TextField
+                  {/* <TextField
                     style={{ width: 300 }}
                     id="datetime-local"
                     type="datetime-local"
@@ -393,24 +406,25 @@ class Backlist extends Component {
                     InputLabelProps={{
                       shrink: true,
                     }}
-                  />
+                  /> */}
+                  <DatePicker style={{ width: 300 }}/>
                 </Form.Item>
                 <Form.Item
                   name="ToDate"
                   rules={[{ required: true }]}
                   label="To"
                 >
-                  <TextField
+                  {/* <TextField
                     style={{ width: 300 }}
                     id="datetime-local-2"
                     type="datetime-local"
                     defaultValue=""
                     InputLabelProps={{
                       shrink: true,
-                    }}
-                  />
+                    }} */}
+                  <DatePicker style={{ width: 300 }}/>
                 </Form.Item>
-                <Form.Item {...tailLayout}>
+                <Form.Item {...tailFormItemLayout}>
                   <Button
                     type="primary"
                     htmlType="submit"

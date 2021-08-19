@@ -13,6 +13,7 @@ import axios from "axios";
 import { NavLink, withRouter } from "react-router-dom";
 import { Layout, Menu, Breadcrumb } from "antd";
 import design4 from "../topbar/Design1.png";
+import logo1 from "./QA-MainWhite.png";
 const { Header, Content } = Layout;
 
 class SignUp extends Component {
@@ -37,13 +38,20 @@ class SignUp extends Component {
       console.log("Failed:", errorInfo);
     };
     const { location, history } = this.props;
+    const layout = {
+      labelCol: { span: 8 },
+      wrapperCol: { span: 16 },
+    };
+    const tailLayout = {
+      wrapperCol: { offset: 8, span: 16 },
+    };
     return (
       <Layout className="site-layout">
         <Header
           className="site-layout-background"
           style={{
             padding: 0,
-            background: "linear-gradient(to right, #ff4600 0%, #ffa833 100%)",
+            background: "linear-gradient(to right, #e48005 0%, #082b6b 100%)",
           }}
         />
         <Content style={{ margin: "0 16px" }}>
@@ -64,7 +72,7 @@ class SignUp extends Component {
             >
               <CssBaseline />
               <img
-                src={design4}
+                src={logo1}
                 style={{ height: "auto", width: "150px" }}
                 className="img-responsive"
                 alt=""
@@ -154,19 +162,18 @@ class SignUp extends Component {
                   />
                 </Form.Item>
 
-                <FormControlLabel
+                {/* <FormControlLabel
                   control={
                     <Checkbox value="allowExtraEmails" color="primary" />
                   }
                   label="I want to receive inspiration, marketing promotions and updates via email."
-                />
+                /> */}
 
-                <Form.Item>
+                <Form.Item {...tailLayout}>
                   <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
+                    type="primary"
+                    htmlType="submit"
+                    style={{ backgroundColor: "#082b6b", color: "white" }}
                   >
                     {/* <NavLink to="/SignIn"> Sign Up</NavLink> */}
                     Sign Up
